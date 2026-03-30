@@ -6,11 +6,15 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          Software Developer with 4+ years of experience building scalable web
-          applications using React.js, Angular, Next.js, Node.js, and NestJS. Skilled
-          in microservices architecture, CMS development, and low-code platforms.
-          Passionate about creating high-performance, production-ready solutions
-          from concept to deployment.
+          I am a Software Engineering graduate passionate about Full Stack
+          Development. Currently a Software Developer at AHDUS.
+        </p>
+        <p className="para">
+          I enjoy building efficient, scalable systems and APIs. Continuously
+          learning new tools and best practices.
+        </p>
+        <p className="para">
+          Open to impactful opportunities and professional growth.
         </p>
       </div>
     </div>

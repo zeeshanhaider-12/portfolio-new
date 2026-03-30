@@ -12,8 +12,8 @@ const Loading = ({ percent }: { percent: number }) => {
 
   useEffect(() => {
     if (percent < 100) return;
-    const t1 = window.setTimeout(() => setLoaded(true), 120);
-    const t2 = window.setTimeout(() => setIsLoaded(true), 320);
+    const t1 = window.setTimeout(() => setLoaded(true), 0);
+    const t2 = window.setTimeout(() => setIsLoaded(true), 40);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -33,7 +33,7 @@ const Loading = ({ percent }: { percent: number }) => {
           module.initialFX();
         }
         setIsLoading(false);
-      }, 180);
+      }, 0);
     });
     return () => {
       cancelled = true;
@@ -104,21 +104,13 @@ export const setProgress = (setLoading: (value: number) => void) => {
   let percent: number = 0;
 
   let interval = setInterval(() => {
-    if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
-      percent = percent + rand;
+    if (percent < 88) {
+      percent = Math.min(88, percent + Math.max(2, Math.round(Math.random() * 9)));
       setLoading(percent);
     } else {
       clearInterval(interval);
-      interval = setInterval(() => {
-        percent = percent + Math.max(1, Math.round(Math.random() * 4));
-        setLoading(percent);
-        if (percent > 91) {
-          clearInterval(interval);
-        }
-      }, 90);
     }
-  }, 80);
+  }, 28);
 
   function clear() {
     clearInterval(interval);
@@ -128,15 +120,9 @@ export const setProgress = (setLoading: (value: number) => void) => {
   function loaded() {
     return new Promise<number>((resolve) => {
       clearInterval(interval);
-      interval = setInterval(() => {
-        if (percent < 100) {
-          percent++;
-          setLoading(percent);
-        } else {
-          resolve(percent);
-          clearInterval(interval);
-        }
-      }, 2);
+      percent = 100;
+      setLoading(100);
+      resolve(percent);
     });
   }
   return { loaded, percent, clear };

@@ -27,7 +27,6 @@ const setCharacter = (
           blobUrl,
           async (gltf) => {
             character = gltf.scene;
-            await renderer.compileAsync(character, camera, scene);
             character.traverse((child: any) => {
               if (child.isMesh) {
                 const mesh = child as THREE.Mesh;
@@ -50,11 +49,14 @@ const setCharacter = (
                 mesh.frustumCulled = true;
               }
             });
+            character!.getObjectByName("footR")!.position.y = 3.36;
+            character!.getObjectByName("footL")!.position.y = 3.36;
+
             resolve(gltf);
             setCharTimeline(character, camera);
             setAllTimeline();
-            character!.getObjectByName("footR")!.position.y = 3.36;
-            character!.getObjectByName("footL")!.position.y = 3.36;
+
+            void renderer.compileAsync(character, camera, scene);
 
             // Monitor scale is handled by GsapScroll.ts animations
 
